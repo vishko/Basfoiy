@@ -1,6 +1,5 @@
-package nalog.dictionarytutorial;
+package com.vishko.basfoiy;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -9,6 +8,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 
@@ -29,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        dbHelper = new DbHelper(this,1,"garbage.db");
+        dbHelper = new DbHelper(this,1,"radheef.db");
         try{
             dbHelper.openDatabase();
 
@@ -43,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
         autoCompleteTextView = findViewById(R.id.srchv);
 
         arrayList = new ArrayList<>();
+        autoCompleteTextView.addTextChangedListener(new ThaanaTextWatcher());
 
         autoCompleteTextView.addTextChangedListener(new TextWatcher() {
             @Override

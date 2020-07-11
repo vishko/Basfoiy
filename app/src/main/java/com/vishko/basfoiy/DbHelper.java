@@ -1,4 +1,4 @@
-package nalog.dictionarytutorial;
+package com.vishko.basfoiy;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -10,8 +10,8 @@ import java.util.ArrayList;
 
 public class DbHelper extends CopyDatabase {
 
-    String Table_Name = "Dictionary";
-    String Column_Name = "English";
+    String Table_Name = "basfoiy";
+    String Column_Name = "dv_word";
     Context mcontext;
 
 
@@ -53,7 +53,7 @@ public class DbHelper extends CopyDatabase {
         Cursor cursor = sqLiteDatabase.rawQuery("Select * from " + Table_Name + " where " + Column_Name + "=  '"+word+"'",null);
 
         while(cursor.moveToNext()){
-            mean = cursor.getString(cursor.getColumnIndex("Hindi"));
+            mean = cursor.getString(cursor.getColumnIndex("dv_meaning"));
 
         }
         return mean;
