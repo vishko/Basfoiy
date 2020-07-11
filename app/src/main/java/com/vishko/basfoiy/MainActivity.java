@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        dbHelper = new DbHelper(this,1,"radheef.db");
+        dbHelper = new DbHelper(this,1,"BasfoiyDB.db");
         try{
             dbHelper.openDatabase();
 

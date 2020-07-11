@@ -10,8 +10,8 @@ import java.util.ArrayList;
 
 public class DbHelper extends CopyDatabase {
 
-    String Table_Name = "basfoiy";
-    String Column_Name = "dv_word";
+    String Table_Name = "basfoiyDB";
+    String Column_Name = "Bas";
     Context mcontext;
 
 
@@ -53,7 +53,7 @@ public class DbHelper extends CopyDatabase {
         Cursor cursor = sqLiteDatabase.rawQuery("Select * from " + Table_Name + " where " + Column_Name + "=  '"+word+"'",null);
 
         while(cursor.moveToNext()){
-            mean = cursor.getString(cursor.getColumnIndex("dv_meaning"));
+            mean = cursor.getString(cursor.getColumnIndex("Maana"));
 
         }
         return mean;
