@@ -1,5 +1,6 @@
 package com.vishko.basfoiy;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -12,17 +13,17 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public class MainActivity extends AppCompatActivity {
 
     AutoCompleteTextView autoCompleteTextView;
 
-    ArrayList<String> arrayList;
-
+    ArrayList<String> arrayList, newArrayList;
     DbHelper dbHelper;
 
 
-    TextView textView;
+    TextView textView, toolBarTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,18 +31,30 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        dbHelper = new DbHelper(this,1,"BasfoiyDB.db");
-        try{
+        dbHelper = new DbHelper(this, 1, "BasfoiyDB.db");
+        try {
             dbHelper.openDatabase();
 
-        }catch (Exception e){}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         try {
             dbHelper.createDatabase();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        catch (Exception e){}
 
 
         autoCompleteTextView = findViewById(R.id.srchv);
+        toolBarTitle = findViewById(R.id.toolbarTitle);
+        textView = findViewById(R.id.txtmean);
+
+        Typeface titleFont = Typeface.createFromAsset(getAssets(), "Samee_Avas_Thaana.ttf");
+        Typeface Faruma = Typeface.createFromAsset(getAssets(), "Faruma.ttf");
+
+        toolBarTitle.setTypeface(titleFont);
+        autoCompleteTextView.setTypeface(Faruma);
+        textView.setTypeface(Faruma);
 
         arrayList = new ArrayList<>();
         autoCompleteTextView.addTextChangedListener(new ThaanaTextWatcher());
@@ -54,11 +67,13 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(s.length() == 1){
+                if (s.length() == 1) {
                     arrayList.addAll(dbHelper.GetAllWords(s.toString()));
-
-                    autoCompleteTextView.setAdapter(new ArrayAdapter<String>(MainActivity.this,
-                            android.R.layout.simple_list_item_1,arrayList));
+                    autoCompleteTextView.setAdapter(new ArrayAdapter<>(MainActivity.this,
+                            android.R.layout.simple_list_item_1, arrayList));
+                    HashSet<String> hashSet = new HashSet<>(arrayList);
+                    arrayList.clear();
+                    arrayList.addAll(hashSet);
                 }
 
             }
@@ -68,9 +83,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
-
-        textView = findViewById(R.id.txtmean);
 
         autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
